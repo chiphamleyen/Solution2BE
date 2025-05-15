@@ -1,4 +1,5 @@
 from datetime import datetime
+from beanie import PydanticObjectId
 from pydantic import BaseModel, Field
 
 from app.dto.common import BaseResponseData
@@ -23,7 +24,7 @@ class LoginResponse(BaseResponseData):
     data: LoginResponseData
 
 class UserResponseData(BaseModel):
-    PydanticObjectId = Field(alias='_id')
+    id: PydanticObjectId = Field(alias='_id')
     user_name: str
     email: str
     created_at: datetime
