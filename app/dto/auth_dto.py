@@ -1,5 +1,5 @@
 from datetime import datetime
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 from app.dto.common import BaseResponseData
 
@@ -23,7 +23,7 @@ class LoginResponse(BaseResponseData):
     data: LoginResponseData
 
 class UserResponseData(BaseModel):
-    id: str
+    PydanticObjectId = Field(alias='_id')
     user_name: str
     email: str
     created_at: datetime

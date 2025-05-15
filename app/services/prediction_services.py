@@ -2,6 +2,7 @@ import logging
 from datetime import datetime
 import asyncio
 import io
+from typing import List
 
 import pandas as pd
 
@@ -14,16 +15,16 @@ _logger = logging.getLogger(__name__)
 class PredictionService:
     @staticmethod
     async def save_prediction(
-        list_of_prediction: list[History],
-    ) -> list[ReportResponseData]:
+        list_of_prediction: List[History],
+    ) -> List[ReportResponseData]:
         await History.insert_many(list_of_prediction)
-        prediction_data = []
+        prediction_data = List[ReportResponseData]()
         for prediction in list_of_prediction:
             prediction_data.append(ReportResponseData(**prediction.model_dump()))
         return prediction_data
     
     @staticmethod
-    async def get_prediction(file: bytes, user_id: str, role: str) -> list[ReportResponseData]:
+    async def get_prediction(file: bytes, user_id: str, role: str) -> List[ReportResponseData]:
         df = pd.read_csv(io.BytesIO(file), encoding='utf-8', sep="|")
         _logger.info(df.head())
         # try:

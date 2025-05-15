@@ -1,5 +1,6 @@
 import logging
 from datetime import datetime
+from typing import List
 from beanie import PydanticObjectId
 
 from app.dto.feedback_dto import FeedbackResponseData, FeedbackRequest
@@ -10,7 +11,7 @@ _logger = logging.getLogger(__name__)
 
 class FeedbackService:
     @staticmethod
-    async def get_list_feedbacks(page: int, size: int) -> tuple[list[FeedbackResponseData], int]:
+    async def get_list_feedbacks(page: int, size: int) -> tuple[List[FeedbackResponseData], int]:
         skip = (page - 1) * size
         feedbacks = await Feedback.find_all().sort(-Feedback.created_at).skip(skip).limit(size).project(FeedbackResponseData).to_list()
         total = await Feedback.count()
@@ -42,7 +43,7 @@ class FeedbackService:
         return feedback_dto
     
     @staticmethod
-    async def get_feedback_by_user_id(user_id: str, page: int, size: int) -> tuple[list[FeedbackResponseData], int]:
+    async def get_feedback_by_user_id(user_id: str, page: int, size: int) -> tuple[List[FeedbackResponseData], int]:
         skip = (page - 1) * size
         feedbacks = await Feedback.find(Feedback.user_id == user_id).sort(-Feedback.created_at).skip(skip).limit(size).project(FeedbackResponseData).to_list()
         total = await Feedback.count(Feedback.user_id == user_id)

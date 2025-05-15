@@ -1,6 +1,7 @@
 import logging
 import hashlib
 from datetime import datetime
+from typing import List
 from beanie import PydanticObjectId
 from pymongo.errors import DuplicateKeyError
 
@@ -60,7 +61,7 @@ class AccountService:
         return new_user
     
     @staticmethod
-    async def get_list_users(page: int, size: int) -> tuple[list[UserResponseData], int]:
+    async def get_list_users(page: int, size: int) -> tuple[List[UserResponseData], int]:
         if page < 1 or size < 1:
             raise BadRequestException("Page and size must be greater than 0")
         skip = (page - 1) * size

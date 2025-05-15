@@ -3,7 +3,7 @@ import jwt
 
 from config.config import get_settings
 from fastapi import Depends, Request, WebSocket
-from fastapi.security import OAuth2PasswordBearer
+from fastapi.security import OAuth2AuthorizationCodeBearer
 
 from app.helpers.exceptions import PermissionDeniedException
 
@@ -52,11 +52,11 @@ def login_token(user_id: str, role: str):
     }
     return generate_token(payload, default_secret_key)
 
-class CustomOAuth2PasswordBearer(OAuth2PasswordBearer):
+class CustomOAuth2AuthorizationCodeBearer(OAuth2AuthorizationCodeBearer):
     async def __call__(self, request: Request = None, websocket: WebSocket = None):
         return await super().__call__(request or websocket)
 
-oauth2_scheme = CustomOAuth2PasswordBearer(tokenUrl="token")
+oauth2_scheme = CustomOAuth2AuthorizationCodeBearer(authorizationUrl="token", tokenUrl="token", refreshUrl="token")
     
 def get_current_user(token: str= Depends(oauth2_scheme)):
     user = decode_token(token)

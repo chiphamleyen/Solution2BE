@@ -11,6 +11,6 @@ COPY ./Makefile /dir/Makefile
 COPY ./ml_models /dir/ml_models
 COPY ./.env /dir/.env
 
-EXPOSE 8080
+EXPOSE 8000
 
-CMD ["make", "start"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "main:app", "--worker-class", "uvicorn.workers.UvicornWorker"]

@@ -1,6 +1,6 @@
 import logging
 from datetime import datetime
-from typing import Optional
+from typing import List, Optional
 
 from app.models.history import History
 from app.dto.report_dto import ReportResponseData
@@ -9,7 +9,7 @@ _logger = logging.getLogger(__name__)
 
 class ReportService:
     @staticmethod
-    async def get_history_data(min_date: datetime, max_date: datetime, user_id: Optional[str]) -> list[ReportResponseData]:
+    async def get_history_data(min_date: datetime, max_date: datetime, user_id: Optional[str]) -> List[ReportResponseData]:
         query = History.find(
             History.created_at >= min_date,
             History.created_at <= max_date
