@@ -18,7 +18,7 @@ async def list_feedbacks(
     current_user: str = Depends(get_current_user),
 ):
     user_id, role = current_user
-    if role != UserRoleEnum.ADMIN:
+    if role != UserRoleEnum.ADMIN.value:
         return BasePaginationResponseData(
             code=403,
             message="Permission denied",
@@ -59,7 +59,7 @@ async def get_feedback_by_id(
     current_user: str = Depends(get_current_user),
 ):
     user_id, role = current_user
-    if role != UserRoleEnum.ADMIN:
+    if role != UserRoleEnum.ADMIN.value:
         return BaseResponseData(
             code=403,
             message="Permission denied",
