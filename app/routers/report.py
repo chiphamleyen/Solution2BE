@@ -43,7 +43,7 @@ async def admin_report(
             data=None
         )
     
-    report = await ReportService.get_history_data(min_date, max_date)
+    report = await ReportService.get_history_data(min_date, max_date, None)
     return BasePaginationResponseData(
         items=report,
         total=len(report),

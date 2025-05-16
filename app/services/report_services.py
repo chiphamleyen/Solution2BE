@@ -9,7 +9,7 @@ _logger = logging.getLogger(__name__)
 
 class ReportService:
     @staticmethod
-    async def get_history_data(min_date: datetime, max_date: datetime, user_id: Optional[str]) -> List[ReportResponseData]:
+    async def get_history_data(min_date: datetime, max_date: datetime, user_id: Optional[str] = None) -> List[ReportResponseData]:
         query = History.find(
             History.created_at >= min_date,
             History.created_at <= max_date
