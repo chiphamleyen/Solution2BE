@@ -13,4 +13,4 @@ COPY ./.env /dir/.env
 
 EXPOSE 8000
 
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "main:app", "--worker-class", "uvicorn.workers.UvicornWorker"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "main:app", "--timeout",  "600", "--worker-class", "uvicorn.workers.UvicornWorker"]

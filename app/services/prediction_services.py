@@ -1,6 +1,5 @@
 import logging
 from datetime import datetime
-import asyncio
 import io
 from typing import List
 
@@ -16,9 +15,9 @@ class PredictionService:
     @staticmethod
     async def save_prediction(
         list_of_prediction: List[History],
-    ) -> List[ReportResponseData]:
+    ):
         await History.insert_many(list_of_prediction)
-        prediction_data = List[ReportResponseData]()
+        prediction_data = []
         for prediction in list_of_prediction:
             prediction_data.append(ReportResponseData(**prediction.model_dump()))
         return prediction_data

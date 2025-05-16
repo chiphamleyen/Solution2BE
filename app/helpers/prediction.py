@@ -113,7 +113,7 @@ def get_prediction(df: pd.DataFrame) -> pd.DataFrame:
     df_combined = pd.concat([df_dropped, df_encoded_features], axis=1)
 
     # Finalising the dataframe with selected categorical and numerical features
-    selected_features = ['hist_S', 'conn_state_RSTO', 'proto_udp', 'conn_state_S2', 'hist_ShAa', 'serv_dns', 'proto_tcp', 'hist_ShAr', 'hist_Sr', 'hist_D', 'conn_state_SF', 'conn_state_REJ', 'hist_unknown', 'proto_icmp', 'hist_Dd']
+    selected_features = ['proto_udp', 'hist_ShAr', 'serv_dns', 'hist_Dd', 'hist_Sr', 'proto_tcp', 'conn_state_REJ', 'hist_S', 'hist_ShAa', 'hist_unknown', 'conn_state_SF', 'proto_icmp', 'hist_D', 'serv_http', 'conn_state_RSTO', 'conn_state_S2']
     df_selected_features = df_combined[list(selected_features)]
     df_final = pd.concat([df_dropped, df_selected_features], axis=1)
 
