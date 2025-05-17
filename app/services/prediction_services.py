@@ -7,7 +7,7 @@ import pandas as pd
 
 from app.models.history import History, ClassifierEnum
 from app.helpers.prediction import get_prediction
-from app.dto.report_dto import ReportResponseData
+from app.dto.report_dto import ReportResponseData, HistoryResponseData
 
 _logger = logging.getLogger(__name__)
 
@@ -19,11 +19,11 @@ class PredictionService:
         await History.insert_many(list_of_prediction)
         prediction_data = []
         for prediction in list_of_prediction:
-            prediction_data.append(ReportResponseData(**prediction.model_dump()))
+            prediction_data.append(HistoryResponseData(**prediction.model_dump()))
         return prediction_data
     
     @staticmethod
-    async def get_prediction(file: bytes, user_id: str, role: str) -> List[ReportResponseData]:
+    async def get_prediction(file: bytes, user_id: str, role: str) -> List[HistoryResponseData]:
         df = pd.read_csv(io.BytesIO(file), encoding='utf-8', sep="|")
         _logger.info(df.head())
         # try:
