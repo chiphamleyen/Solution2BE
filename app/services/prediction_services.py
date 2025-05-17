@@ -23,7 +23,7 @@ class PredictionService:
         return prediction_data
     
     @staticmethod
-    async def get_prediction(file: bytes, user_id: str, role: str) -> List[HistoryResponseData]:
+    async def get_prediction(file: bytes, user_id: str, role: str):
         df = pd.read_csv(io.BytesIO(file), encoding='utf-8', sep="|")
         _logger.info(df.head())
         # try:
