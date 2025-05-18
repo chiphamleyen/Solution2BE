@@ -1,3 +1,4 @@
+from datetime import datetime
 from beanie import PydanticObjectId
 from pydantic import BaseModel, Field
 
@@ -7,7 +8,7 @@ class FeedbackRequest(BaseModel):
 class FeedbackResponseData(BaseModel):
     id: PydanticObjectId = Field(alias='_id')
     content: str
-    created_at: str
-    updated_at: str
+    created_at: datetime
+    updated_at: datetime
     user_id: str
 
