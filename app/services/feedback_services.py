@@ -35,6 +35,7 @@ class FeedbackService:
         await feedback.create()
         feedback_dto = FeedbackResponseData(
             id=str(feedback.id),
+            _id=str(feedback.id),
             content=feedback.content,
             created_at=feedback.created_at,
             updated_at=feedback.updated_at,

@@ -86,6 +86,7 @@ class AccountService:
         _logger.info(f"User updated: {user.user_name}")
         return UserResponseData(
             id=str(user.id),
+            _id=str(user.id),
             user_name=user.user_name,
             email=user.email,
             role=user.role.value,
