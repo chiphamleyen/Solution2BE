@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, Query
 
-from app.dto.common import BasePaginationResponseData, BaseResponseData
-from app.dto.feedback_dto import FeedbackRequest
+from app.dto.common import BasePaginationResponseData
+from app.dto.feedback_dto import FeedbackRequest, FeedbackResponse
 from app.models.user import UserRoleEnum
 from app.services.feedback_services import FeedbackService
 from app.helpers.auth_helpers import get_current_user
@@ -52,7 +52,7 @@ async def list_feedback_by_self(
 
 @router.get(
     "/{feedback_id}",
-    response_model=BaseResponseData,
+    response_model=FeedbackResponse,
 )
 async def get_feedback_by_id(
     feedback_id: str,
@@ -60,20 +60,20 @@ async def get_feedback_by_id(
 ):
     user_id, role = current_user
     if role != UserRoleEnum.ADMIN.value:
-        return BaseResponseData(
-            code=403,
+        return FeedbackResponse(
+            error_code=403,
             message="Permission denied",
             data=None
         )
     feedback = await FeedbackService.get_feedback_by_id(feedback_id)
-    return BaseResponseData(
+    return FeedbackResponse(
         message="Succeed",
         data=feedback
     )
 
 @router.post(
     "/create_feedback",
-    response_model=BaseResponseData,
+    response_model=FeedbackResponse,
 )
 async def create_feedback(
     request: FeedbackRequest,
@@ -81,7 +81,7 @@ async def create_feedback(
 ):
     user_id, role = current_user
     feedback = await FeedbackService.create_feedback(user_id, request)
-    return BaseResponseData(
+    return FeedbackResponse(
         message="Succeed",
         data=feedback
     )
